@@ -97,3 +97,5 @@ class Crawler:
                 )
 
         wait(futures, return_when=ALL_COMPLETED)
+        for driver in drivers:
+            driver.quit()

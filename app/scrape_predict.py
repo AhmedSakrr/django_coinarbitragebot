@@ -18,7 +18,7 @@ def predict_scraping(max_crawl_pages):
     scraped_data = []
     start_time = perf_counter()
 
-    pool = list(Coin.objects.filter(status=1).values())[:20]
+    pool = list(Coin.objects.filter(status=1).values())[:10]
 
     for item in pool:
         item.update({"batch_number": 1})
@@ -29,7 +29,7 @@ def predict_scraping(max_crawl_pages):
             (PredictScraper,),
             scraped_data,
             pool,
-            10,
+            12,
             Predict
         )
 
