@@ -18,7 +18,7 @@ def predict_scraping(max_crawl_pages):
     scraped_data = []
     start_time = perf_counter()
 
-    pool = list(Coin.objects.filter(status=1).values())[:10]
+    pool = list(Coin.objects.filter(status=1).values())[:50]
 
     for item in pool:
         item.update({"batch_number": 1})
@@ -29,22 +29,23 @@ def predict_scraping(max_crawl_pages):
             (PredictScraper,),
             scraped_data,
             pool,
-            12,
+            20,
             Predict
         )
 
-        bulk = []
+        # bulk = []
         for item in scraped_data:
             predict = Predict.objects.create(**item)
-            bulk.append(predict)
+            predict.save()
+            # bulk.append(predict)
 
-        Predict.objects.bulk_create(bulk)
+        # Predict.objects.bulk_create(bulk)
     except Exception as e:
         print(str(e))
 
     end_time = perf_counter()
     content = {'total_time_of_crawling_scraping': end_time - start_time,
-               'average_time_per_page': (end_time - start_time) / max_crawl_pages,
+               'average_time_per_page': (end_time - start_time) / len(pool),
                'max_crawl_pages': max_crawl_pages,
                'max_level_of_crawl': max_level_of_crawl,
                }

@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'coin_scraper',
         'USER': 'root',
-        'PASSWORD': '123456789',
+        'PASSWORD': '123456789@Qqq',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
